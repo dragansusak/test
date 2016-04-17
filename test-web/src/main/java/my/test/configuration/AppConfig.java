@@ -15,8 +15,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = {"my.test"})
 public class AppConfig extends WebMvcConfigurerAdapter{
 
-
-    
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
