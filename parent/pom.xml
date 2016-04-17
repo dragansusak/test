@@ -19,6 +19,8 @@
     <modules>
         <module>../test-web</module>
         <module>../test-data</module>
+        <module>../test-model</module>
+        <module>../test-service</module>
     </modules>
 
     <dependencyManagement>
