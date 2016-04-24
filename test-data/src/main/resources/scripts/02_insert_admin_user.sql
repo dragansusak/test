@@ -1,0 +1,2 @@
+INSERT  INTO user (id, username, password, salt, email, first_name, last_name,valid_from, valid_to) VALUE
+  (1,'admin', 'admin','salt','admin.admin@gmail.com','Admin','Admin',CURRENT_TIMESTAMP,'2099-12-31 00:00:00')

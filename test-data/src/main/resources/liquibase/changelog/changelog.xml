@@ -8,5 +8,8 @@
     <changeSet id="01_add_user_table.sql" author="Dragan Susak" >
           <sqlFile path="scripts/01_add_user_table.sql"/>
     </changeSet>
+    <changeSet id="02_insert_admin_user.sql" author="Dragan Susak" >
+        <sqlFile path="scripts/02_insert_admin_user.sql"/>
+    </changeSet>
 </databaseChangeLog>
 
