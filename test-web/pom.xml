@@ -17,6 +17,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>my.test</groupId>
+            <artifactId>test-service</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
         </dependency>

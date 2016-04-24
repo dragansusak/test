@@ -11,9 +11,11 @@
 
     <properties>
         <spring.version>4.2.5.RELEASE</spring.version>
+        <spring.data.version>1.10.1.RELEASE</spring.data.version>
         <servlet.version>3.1.0</servlet.version>
         <mysql.version>5.1.32</mysql.version>
         <liquibase.version>3.1.1</liquibase.version>
+        <hibernate.version>5.1.0.Final</hibernate.version>
     </properties>
 
     <modules>
@@ -44,6 +46,21 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
                 <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-jpa</artifactId>
+                <version>${spring.data.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>

@@ -27,6 +27,12 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
+                <configuration>
+                    <propertyFile>liquibase/liquibase.properties</propertyFile>
+                    <changeLogFile>liquibase/changelog/changelog.xml</changeLogFile>
+
+                </configuration>
+
             </plugin>
         </plugins>
     </build>
