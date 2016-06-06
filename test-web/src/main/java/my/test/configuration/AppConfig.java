@@ -1,11 +1,22 @@
 package my.test.configuration;
 
+import com.fasterxml.jackson.databind.module.SimpleDeserializers;
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
 
 /**
  * Created by dragan on 16-Apr-16.
@@ -13,7 +24,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = {"my.test"})
-public class AppConfig extends WebMvcConfigurerAdapter{
+public class AppConfig extends WebMvcConfigurerAdapter {
 
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -31,6 +42,19 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 //        bean.setPrefix("/WEB-INF/views/");
 //        bean.setSuffix(".jsp");
         return bean;
+    }
+
+    @Bean
+    public DozerBeanMapperFactoryBean getDozermapper() {
+        return new DozerBeanMapperFactoryBean();
+    }
+
+    @Bean
+    public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter(){
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        JavaTimeModule m = new JavaTimeModule();
+        converter.getObjectMapper().registerModule(m);
+        return converter;
     }
 
 //    @Bean(name = "multipartResolver")
