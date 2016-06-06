@@ -17,9 +17,11 @@ public class UserDto {
     private String email;
     private String firstName;
     private String lastName;
-    @JsonFormat(pattern = "yyyy-MM-dd 00:00:00", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime validFrom;
-    @JsonFormat(pattern = "yyyy-MM-dd 00:00:00", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime validTo;
 
     public UserDto() {
