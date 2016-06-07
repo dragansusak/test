@@ -2,7 +2,7 @@ package my.test.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import my.test.configuration.deserializer.LocalDateTimeDeserializer;
 
 import java.time.LocalDateTime;
 
@@ -10,29 +10,20 @@ import java.time.LocalDateTime;
  * Created by Dragan Susak on 06-Jun-16.
  */
 public class UserDto {
-    private int id;
     private String username;
     private String password;
     private String salt;
     private String email;
     private String firstName;
     private String lastName;
-    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime validFrom;
-    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime validTo;
 
     public UserDto() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
