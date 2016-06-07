@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
  * Created by Dragan Susak on 06-Jun-16.
  */
 
-public class BaseConverter<MODEL,DTO> implements ModelDtoConverter<MODEL, DTO> {
+public abstract class BaseConverter<MODEL,DTO> implements ModelDtoConverter<MODEL, DTO> {
 
     @Override
     public MODEL convertToModel(DTO dto) {
