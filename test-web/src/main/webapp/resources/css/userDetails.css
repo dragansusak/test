@@ -1,0 +1,12 @@
+.userDetails{
+    background:brown;
+    float:left;
+    padding:5px;
+}
+
+.userDetailsRow-even{
+    background: aliceblue;
+}
+.userDetailsRow-odd{
+    background: aquamarine;
+}

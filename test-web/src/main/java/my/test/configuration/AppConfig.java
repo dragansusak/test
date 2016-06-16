@@ -11,8 +11,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -37,11 +39,17 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 //    }
 
     @Bean
-    public InternalResourceViewResolver jspViewResolver() {
+    public InternalResourceViewResolver htmlViewResolver() {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
-//        bean.setPrefix("/WEB-INF/views/");
-//        bean.setSuffix(".jsp");
+//        bean.setViewClass(JstlView.class);
+        bean.setExposeContextBeansAsAttributes(true);
+        bean.setPrefix("/WEB-INF/views/");
         return bean;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/WEB-INF/**","/resources/**").addResourceLocations("/WEB-INF/","/resources/").setCachePeriod(0);
     }
 
     @Bean
