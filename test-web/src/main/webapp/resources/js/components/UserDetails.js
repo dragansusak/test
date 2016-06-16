@@ -8,8 +8,9 @@ var UserDetails = React.createClass({
         this.loadData();
     },
     loadData : function (){
+        var url= "/test/users/" + this.props.userId;
         $.ajax({
-            url: "/test/users/1",
+            url: url,
             data: null,
             success: function (data) {
                 this.setState({
@@ -44,7 +45,7 @@ var UserDetails = React.createClass({
 });
 
 ReactDOM.render(
-    <UserDetails userId="1"/>,
+    <UserDetails userId="2"/>,
     document.getElementById('container')
 );
 
