@@ -17,7 +17,7 @@ var TableRow = React.createClass({
                 <td>{this.props.data.lastName}</td>
                 <td>{this.props.data.username}</td>
                 <td>{this.props.data.email}</td>
-                <td></td>
+                <td><Link title="View" url="#"/></td>
                 <td></td>
                 <td><Link title="Delete" handleClick={this.handleDeleteUser} url="#"/></td>
             </tr>
@@ -111,7 +111,63 @@ var Main = React.createClass({
     }
 });
 
+var UserDetails = React.createClass({
+    getInitialState: function() {
+        return {
+            data: {}
+        }
+    },
+    componentDidMount:function () {
+        this.loadData();
+    },
+    loadData : function (){
+        var url= "/test/users/" + 16;
+        $.ajax({
+            url: url,
+            data: null,
+            success: function (data) {
+                this.setState({
+                    data: data
+                });
+            }.bind(this),
+        });
+    },
+    render: function() {
+
+        return (
+            <div className="userDetails">
+                <div className="userDetailsRow-even">
+                    <span>First Name:</span>&nbsp;
+                    <span>{this.state.data.firstName}</span>
+                </div>
+                <div className="userDetailsRow-odd">
+                    <span>Last name:</span>&nbsp;
+                    <span>{this.state.data.lastName}</span>
+                </div>
+                <div className="userDetailsRow-even">
+                    <span>Username:</span>&nbsp;
+                    <span>{this.state.data.username}</span>
+                </div>
+                <div className="userDetailsRow-odd">
+                    <span>Email:</span>&nbsp;
+                    <span>{this.state.data.email}</span>
+                </div>
+            </div>
+        );
+    }
+});
+
+var Router = ReactRouter.Router;
+var hashHistory = ReactRouter.hashHistory;
+var Route = ReactRouter.Route;
+var IndexRoute = ReactRouter.IndexRoute;
+
 ReactDOM.render(
-    <Main />,
+   <Router history = {hashHistory}>
+       <Route path='/' component={Main}>
+           <IndexRoute component={Main}></IndexRoute>
+           <Route path="/:userId" component={UserDetails}/>
+       </Route>
+   </Router>,
     document.getElementById('container')
 );

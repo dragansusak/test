@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Created by dragan on 16-Apr-16.
  */
-@RequestMapping(value="/")
+@RequestMapping(value="home/*")
 @Controller
 public class IndexController {
 
@@ -20,7 +20,7 @@ public class IndexController {
         return "userDetails.html";
     }
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
+    @RequestMapping(value="/bla", method = RequestMethod.GET)
     public  String getIndex(){
         return "index.html";
     }
