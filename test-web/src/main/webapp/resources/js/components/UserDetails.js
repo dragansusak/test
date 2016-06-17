@@ -44,8 +44,8 @@ var UserDetails = React.createClass({
     }
 });
 
-ReactDOM.render(
-    <UserDetails userId="2"/>,
-    document.getElementById('container')
-);
+// ReactDOM.render(
+//     <UserDetails userId="2"/>,
+//     document.getElementById('container')
+// );
 
