@@ -1,0 +1,12 @@
+.tableRow-even{
+    background: aliceblue;
+}
+.tableRow-odd{
+    background: aquamarine;
+}
+
+.table{
+    background:brown;
+    float:left;
+    padding:5px;
+}

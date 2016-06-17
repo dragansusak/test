@@ -19,4 +19,9 @@ public class IndexController {
     public  String getUserDetails(){
         return "userDetails.html";
     }
+
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public  String getIndex(){
+        return "index.html";
+    }
 }
