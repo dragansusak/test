@@ -1,15 +1,14 @@
-
-var Link =   React.createClass({
+var Link = React.createClass({
     render: function () {
         return (
-        <a href={this.props.url} onClick={this.props.handleClick}>{this.props.title}</a>
+            <a href={this.props.url} onClick={this.props.handleClick}>{this.props.title}</a>
         );
     }
 });
 
-var TableRow =  React.createClass({
-    handleDeleteUser:function () {
-      this.props.handleDeleteUser(this.props.data.id, this.props.rowIndex);
+var TableRow = React.createClass({
+    handleDeleteUser: function () {
+        this.props.handleDeleteUser(this.props.data.id, this.props.rowIndex);
     },
     render: function () {
         return (
@@ -27,8 +26,8 @@ var TableRow =  React.createClass({
 
 });
 
-var Header =  React.createClass({
-    render:function () {
+var Header = React.createClass({
+    render: function () {
         return (
             <thead>
             <tr>
@@ -46,17 +45,17 @@ var Header =  React.createClass({
 
 });
 
-var Table =  React.createClass({
-    getInitialState: function() {
+var Table = React.createClass({
+    getInitialState: function () {
         return {
             data: []
         }
     },
-    componentDidMount:function () {
+    componentDidMount: function () {
         this.loadData();
     },
-    loadData:function () {
-        var url= "/test/users";
+    loadData: function () {
+        var url = "/test/users";
         jQuery.ajax({
             url: url,
             data: null,
@@ -67,28 +66,30 @@ var Table =  React.createClass({
             }.bind(this),
         });
     },
-    handleDeleteUser:function (id,index) {
-        var deleteUrl = "/test/users/delete/"+id;
+    handleDeleteUser: function (id, index) {
+        var deleteUrl = "/test/users/delete/" + id;
         jQuery.ajax({
             url: deleteUrl,
             data: null,
             success: function () {
                 var data = this.state.data;
-                data.splice(index,1);
+                data.splice(index, 1);
                 this.setState({
-                    data:this.state.data
+                    data: this.state.data
                 })
             }.bind(this),
         });
     },
-    render:function () {
+    render: function () {
 
         return (
             <div className='table'>
                 <table>
-                <Header/>
+                    <Header/>
                     <tbody>
-                    {this.state.data.map((user, i) => <TableRow key={i} rowIndex={i} data={user} rowStyle={i%2==0?'tableRow-even':'tableRow-odd'} handleDeleteUser={this.handleDeleteUser}/>)}
+                    {this.state.data.map((user, i) => <TableRow key={i} rowIndex={i} data={user}
+                                                                rowStyle={i%2==0?'tableRow-even':'tableRow-odd'}
+                                                                handleDeleteUser={this.handleDeleteUser}/>)}
                     </tbody>
                 </table>
             </div>
@@ -97,7 +98,20 @@ var Table =  React.createClass({
 
 });
 
+var Main = React.createClass({
+    render: function () {
+        return (
+            <div>
+                <Table/>
+                <div>
+                <Link title="New user" url=""/>
+                </div>
+            </div>
+        );
+    }
+});
+
 ReactDOM.render(
-<Table />,
+    <Main />,
     document.getElementById('container')
 );

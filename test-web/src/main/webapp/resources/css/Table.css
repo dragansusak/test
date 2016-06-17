@@ -7,6 +7,6 @@
 
 .table{
     background:brown;
-    float:left;
     padding:5px;
+    display: inline-flex;
 }
