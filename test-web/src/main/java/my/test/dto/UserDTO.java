@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
  * Created by Dragan Susak on 06-Jun-16.
  */
 public class UserDto {
+    private int id;
     private String username;
     private String password;
     private String salt;
@@ -24,6 +25,14 @@ public class UserDto {
     private LocalDateTime validTo;
 
     public UserDto() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {

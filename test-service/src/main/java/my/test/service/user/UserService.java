@@ -14,4 +14,6 @@ public interface UserService {
     User getById(int id);
 
     User storeUser(User user);
+
+    void deleteUser(int id);
 }

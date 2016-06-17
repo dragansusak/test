@@ -30,13 +30,19 @@ public class UserController {
     private UserConverter userConverter;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserDto>> getAllUsers()  throws Exception {
-        return new ResponseEntity<>(userService.getAll().stream().map(user ->  userConverter.convertToDto(user)).collect(Collectors.toList()), HttpStatus.OK);
+    public ResponseEntity<List<UserDto>> getAllUsers() throws Exception {
+        return new ResponseEntity<>(userService.getAll().stream().map(user -> userConverter.convertToDto(user)).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> getUser(@PathVariable final int id) {
         return new ResponseEntity<>(userConverter.convertToDto(userService.getById(id)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Void> deleteUser(@PathVariable final int id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
