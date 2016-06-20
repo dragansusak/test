@@ -1,24 +1,16 @@
 package my.test.configuration;
 
-import com.fasterxml.jackson.databind.module.SimpleDeserializers;
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
-
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 /**
  * Created by dragan on 16-Apr-16.
@@ -65,7 +57,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return converter;
     }
 
-//    @Bean(name = "multipartResolver")
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/*").allowedOrigins("*");
+        registry.addMapping("/**").allowedOrigins("*");
+    }
+
+    //    @Bean(name = "multipartResolver")
 //    public CommonsMultipartResolver getMultipartResolver() {
 //        return new CommonsMultipartResolver();
 //    }

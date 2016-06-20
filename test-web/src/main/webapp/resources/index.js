@@ -1,3 +1,9 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+var jQuery = require('jquery');
+
+var baseUrl="http://localhost:8080";
+
 var Link = React.createClass({
     render: function () {
         return (
@@ -55,7 +61,8 @@ var Table = React.createClass({
         this.loadData();
     },
     loadData: function () {
-        var url = "/test/users";
+        var url = baseUrl + "/test/users";
+
         jQuery.ajax({
             url: url,
             data: null,
@@ -67,7 +74,7 @@ var Table = React.createClass({
         });
     },
     handleDeleteUser: function (id, index) {
-        var deleteUrl = "/test/users/delete/" + id;
+        var deleteUrl = baseUrl+"/test/users/delete/" + id;
         jQuery.ajax({
             url: deleteUrl,
             data: null,
@@ -104,7 +111,7 @@ var Main = React.createClass({
             <div>
                 <Table/>
                 <div>
-                <Link title="New user" url=""/>
+                 <Link title="New user" url=""/>
                 </div>
             </div>
         );

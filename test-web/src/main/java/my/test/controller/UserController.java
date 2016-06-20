@@ -31,18 +31,24 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UserDto>> getAllUsers() throws Exception {
-        return new ResponseEntity<>(userService.getAll().stream().map(user -> userConverter.convertToDto(user)).collect(Collectors.toList()), HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        ResponseEntity<List<UserDto>> ent = new ResponseEntity<>(
+                userService.getAll().stream().map(user -> userConverter.convertToDto(user)).collect(Collectors.toList()),headers, HttpStatus.OK);
+
+        return ent;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> getUser(@PathVariable final int id) {
-        return new ResponseEntity<>(userConverter.convertToDto(userService.getById(id)), HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(userConverter.convertToDto(userService.getById(id)), headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteUser(@PathVariable final int id) {
         userService.deleteUser(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(headers,HttpStatus.OK);
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
