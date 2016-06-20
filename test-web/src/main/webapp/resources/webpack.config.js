@@ -1,8 +1,8 @@
 var config = {
-    entry: './index.js',
+    entry: './js/index.js',
 
     output: {
-        path:'./',
+        path:'./js',
         filename: 'index.js',
     },
 
@@ -19,7 +19,7 @@ var config = {
                 loader: 'babel',
 
                 query: {
-                    presets: ['es2015','react']
+                    presets: ['react']
                 }
             }
         ]
