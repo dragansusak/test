@@ -1,5 +1,5 @@
 var React = require('react');
-var Table = require('./Table');
+var Table = require('./table');
 var Link = require('./Link');
 var UsersOverview = React.createClass({
     render: function () {
