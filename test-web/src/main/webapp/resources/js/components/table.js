@@ -8,13 +8,14 @@ var TableRow = React.createClass({
         this.props.handleDeleteUser(this.props.data.id, this.props.rowIndex);
     },
     render: function () {
+        var detailsUrl = "#/userDetails/"+this.props.data.id;
         return (
             <tr className={this.props.rowStyle}>
                 <td>{this.props.data.firstName}</td>
                 <td>{this.props.data.lastName}</td>
                 <td>{this.props.data.username}</td>
                 <td>{this.props.data.email}</td>
-                <td></td>
+                <td><Link title="Details" url={detailsUrl}/></td>
                 <td></td>
                 <td><Link title="Delete" handleClick={this.handleDeleteUser} url="#"/></td>
             </tr>

@@ -1,3 +1,5 @@
+var React = require('react');
+var jQuery = require('jquery');
 var UserDetails = React.createClass({
     getInitialState: function() {
         return {
@@ -8,8 +10,8 @@ var UserDetails = React.createClass({
         this.loadData();
     },
     loadData : function (){
-        var url= "/test/users/" + this.props.userId;
-        $.ajax({
+        var url= "http://localhost:8080/test/users/" + this.props.routeParams.userId;
+        jQuery.ajax({
             url: url,
             data: null,
             success: function (data) {
@@ -44,8 +46,6 @@ var UserDetails = React.createClass({
     }
 });
 
-// ReactDOM.render(
-//     <UserDetails userId="2"/>,
-//     document.getElementById('container')
-// );
+module.exports = UserDetails;
+
 

@@ -1,10 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Main = require('./components/Main');
+var Routes = require('./components/Routes');
 
 require('./../css/Table');
 
 ReactDOM.render(
-    <Main />,
+    Routes,
     document.getElementById('container')
 );
