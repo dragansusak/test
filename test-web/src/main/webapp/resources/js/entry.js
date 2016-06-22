@@ -2,4 +2,4 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Hello from "./hello";
 
-ReactDOM.render(<Hello name="aaaa"/>, document.body);
+ReactDOM.render(<Hello name="aae"/>, document.getElementById("blabla"));
