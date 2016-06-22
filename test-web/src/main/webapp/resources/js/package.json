@@ -28,5 +28,4 @@
     "react-dom": "^15.1.0",
     "webpack-dev-server": "^1.14.1"
   }
-
 }
