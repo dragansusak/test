@@ -3,7 +3,7 @@ var config = {
 
     output: {
         path:'./js',
-        filename: 'index.js',
+        filename: 'bundle.js',
     },
 
     devServer: {
@@ -14,15 +14,23 @@ var config = {
     module: {
         loaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.js?$/,
                 exclude: /node_modules/,
                 loader: 'babel',
 
                 query: {
                     presets: ['react']
                 }
+            },
+            {
+                test:/\.css$/,
+                exclude: /node_modules/,
+                loader: 'style!css',
             }
         ]
+    },
+    resolve:{
+        extensions:['','.js','.es6','.css']
     }
 }
 
