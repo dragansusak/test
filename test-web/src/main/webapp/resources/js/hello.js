@@ -1,11 +1,13 @@
-import React from "react";
+var React = require('react');
 
-export default React.createClass({
+var Hello = React.createClass({
     render: function() {
         return (
             <div>
                 Hello, {this.props.name}!
             </div>
         );
-    },
+    }
 });
+
+module.exports = Hello;

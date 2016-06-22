@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline",
+    "start": "webpack-dev-server --hot",
     "production": "webpack --config webpack-production.config.js -p"
   },
   "author": "",
@@ -18,7 +18,9 @@
     "jshint-loader": "^0.8.3",
     "node-libs-browser": "^1.0.0",
     "strip-loader": "^0.1.2",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.13.1"
   },
   "dependencies": {
     "html-webpack-plugin": "^2.21.0",
