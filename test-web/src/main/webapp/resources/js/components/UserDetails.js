@@ -1,5 +1,6 @@
 var React = require('react');
 var jQuery = require('jquery');
+require('./../../css/userDetails');
 var UserDetails = React.createClass({
     getInitialState: function() {
         return {

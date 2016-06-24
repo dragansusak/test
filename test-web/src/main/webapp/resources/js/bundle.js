@@ -48,8 +48,6 @@
 	var ReactDOM = __webpack_require__(38);
 	var Routes = __webpack_require__(168);
 
-	__webpack_require__(272);
-
 	ReactDOM.render(Routes, document.getElementById('container'));
 
 /***/ },
@@ -20358,7 +20356,7 @@
 
 	var Main = __webpack_require__(266);
 	var UserDetails = __webpack_require__(267);
-	var UsersOverview = __webpack_require__(269);
+	var UsersOverview = __webpack_require__(273);
 
 	var routes = React.createElement(
 	    Router,
@@ -29965,6 +29963,7 @@
 
 	var React = __webpack_require__(1);
 	var jQuery = __webpack_require__(268);
+	__webpack_require__(269);
 	var UserDetails = React.createClass({
 	    displayName: 'UserDetails',
 
@@ -39883,234 +39882,20 @@
 /* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var Table = __webpack_require__(270);
-	var Link = __webpack_require__(271);
-	var UsersOverview = React.createClass({
-	    displayName: 'UsersOverview',
-
-	    render: function () {
-	        return React.createElement(
-	            'div',
-	            null,
-	            React.createElement(Table, null),
-	            React.createElement(
-	                'div',
-	                null,
-	                React.createElement(Link, { title: 'New user', url: '' })
-	            )
-	        );
-	    }
-	});
-
-	module.exports = UsersOverview;
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(271);
-	var jQuery = __webpack_require__(268);
-
-	var baseUrl = "http://localhost:8080";
-	var TableRow = React.createClass({
-	    displayName: 'TableRow',
-
-	    handleDeleteUser: function () {
-	        this.props.handleDeleteUser(this.props.data.id, this.props.rowIndex);
-	    },
-	    render: function () {
-	        var detailsUrl = "#/userDetails/" + this.props.data.id;
-	        return React.createElement(
-	            'tr',
-	            { className: this.props.rowStyle },
-	            React.createElement(
-	                'td',
-	                null,
-	                this.props.data.firstName
-	            ),
-	            React.createElement(
-	                'td',
-	                null,
-	                this.props.data.lastName
-	            ),
-	            React.createElement(
-	                'td',
-	                null,
-	                this.props.data.username
-	            ),
-	            React.createElement(
-	                'td',
-	                null,
-	                this.props.data.email
-	            ),
-	            React.createElement(
-	                'td',
-	                null,
-	                React.createElement(Link, { title: 'Details', url: detailsUrl })
-	            ),
-	            React.createElement('td', null),
-	            React.createElement(
-	                'td',
-	                null,
-	                React.createElement(Link, { title: 'Delete', handleClick: this.handleDeleteUser, url: '#' })
-	            )
-	        );
-	    }
-
-	});
-
-	var Header = React.createClass({
-	    displayName: 'Header',
-
-	    render: function () {
-	        return React.createElement(
-	            'thead',
-	            null,
-	            React.createElement(
-	                'tr',
-	                null,
-	                React.createElement(
-	                    'th',
-	                    null,
-	                    'First Name'
-	                ),
-	                React.createElement(
-	                    'th',
-	                    null,
-	                    'Last Name'
-	                ),
-	                React.createElement(
-	                    'th',
-	                    null,
-	                    'Username'
-	                ),
-	                React.createElement(
-	                    'th',
-	                    null,
-	                    'Email'
-	                ),
-	                React.createElement(
-	                    'th',
-	                    null,
-	                    'Details'
-	                ),
-	                React.createElement(
-	                    'th',
-	                    null,
-	                    'Edit'
-	                ),
-	                React.createElement(
-	                    'th',
-	                    null,
-	                    'Delete'
-	                )
-	            )
-	        );
-	    }
-
-	});
-
-	var Table = React.createClass({
-	    displayName: 'Table',
-
-	    getInitialState: function () {
-	        return {
-	            data: []
-	        };
-	    },
-	    componentDidMount: function () {
-	        this.loadData();
-	    },
-	    loadData: function () {
-	        var url = baseUrl + "/test/users";
-
-	        jQuery.ajax({
-	            url: url,
-	            data: null,
-	            success: function (data) {
-	                this.setState({
-	                    data: data
-	                });
-	            }.bind(this)
-	        });
-	    },
-	    handleDeleteUser: function (id, index) {
-	        var deleteUrl = baseUrl + "/test/users/delete/" + id;
-	        jQuery.ajax({
-	            url: deleteUrl,
-	            data: null,
-	            success: function () {
-	                var data = this.state.data;
-	                data.splice(index, 1);
-	                this.setState({
-	                    data: this.state.data
-	                });
-	            }.bind(this)
-	        });
-	    },
-	    render: function () {
-
-	        return React.createElement(
-	            'div',
-	            { className: 'table' },
-	            React.createElement(
-	                'table',
-	                null,
-	                React.createElement(Header, null),
-	                React.createElement(
-	                    'tbody',
-	                    null,
-	                    this.state.data.map((user, i) => React.createElement(TableRow, { key: i, rowIndex: i, data: user,
-	                        rowStyle: i % 2 == 0 ? 'tableRow-even' : 'tableRow-odd',
-	                        handleDeleteUser: this.handleDeleteUser }))
-	                )
-	            )
-	        );
-	    }
-
-	});
-
-	module.exports = Table;
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Link = React.createClass({
-	    displayName: 'Link',
-
-	    render: function () {
-	        return React.createElement(
-	            'a',
-	            { href: this.props.url, onClick: this.props.handleClick },
-	            this.props.title
-	        );
-	    }
-	});
-
-	module.exports = Link;
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(273);
+	var content = __webpack_require__(270);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(275)(content, {});
+	var update = __webpack_require__(272)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../js/node_modules/css-loader/index.js!./Table.css", function() {
-				var newContent = require("!!./../js/node_modules/css-loader/index.js!./Table.css");
+			module.hot.accept("!!./../js/node_modules/css-loader/index.js!./userDetails.css", function() {
+				var newContent = require("!!./../js/node_modules/css-loader/index.js!./userDetails.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -40120,21 +39905,21 @@
 	}
 
 /***/ },
-/* 273 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(274)();
+	exports = module.exports = __webpack_require__(271)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".tableRow-even{\r\n    background: aliceblue;\r\n}\r\n.tableRow-odd{\r\n    background: aquamarine;\r\n}\r\n\r\n.table{\r\n    background:brown;\r\n    padding:5px;\r\n    display: inline-flex;\r\n}", ""]);
+	exports.push([module.id, ".userDetails{\r\n    background:brown;\r\n    float:left;\r\n    padding:5px;\r\n}\r\n\r\n.userDetailsRow-even{\r\n    background: aliceblue;\r\n}\r\n.userDetailsRow-odd{\r\n    background: aquamarine;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 274 */
+/* 271 */
 /***/ function(module, exports) {
 
 	/*
@@ -40190,7 +39975,7 @@
 
 
 /***/ },
-/* 275 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -40439,6 +40224,261 @@
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
+
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Table = __webpack_require__(274);
+	var Link = __webpack_require__(275);
+	var UsersOverview = React.createClass({
+	    displayName: 'UsersOverview',
+
+	    render: function () {
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(Table, null),
+	            React.createElement(
+	                'div',
+	                null,
+	                React.createElement(Link, { title: 'New user', url: '' })
+	            )
+	        );
+	    }
+	});
+
+	module.exports = UsersOverview;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(275);
+	var jQuery = __webpack_require__(268);
+	__webpack_require__(276);
+
+	var baseUrl = "http://localhost:8080";
+	var TableRow = React.createClass({
+	    displayName: 'TableRow',
+
+	    handleDeleteUser: function () {
+	        this.props.handleDeleteUser(this.props.data.id, this.props.rowIndex);
+	    },
+	    render: function () {
+	        var detailsUrl = "#/userDetails/" + this.props.data.id;
+	        return React.createElement(
+	            'tr',
+	            { className: this.props.rowStyle },
+	            React.createElement(
+	                'td',
+	                null,
+	                this.props.data.firstName
+	            ),
+	            React.createElement(
+	                'td',
+	                null,
+	                this.props.data.lastName
+	            ),
+	            React.createElement(
+	                'td',
+	                null,
+	                this.props.data.username
+	            ),
+	            React.createElement(
+	                'td',
+	                null,
+	                this.props.data.email
+	            ),
+	            React.createElement(
+	                'td',
+	                null,
+	                React.createElement(Link, { title: 'Details', url: detailsUrl })
+	            ),
+	            React.createElement('td', null),
+	            React.createElement(
+	                'td',
+	                null,
+	                React.createElement(Link, { title: 'Delete', handleClick: this.handleDeleteUser, url: '#' })
+	            )
+	        );
+	    }
+
+	});
+
+	var Header = React.createClass({
+	    displayName: 'Header',
+
+	    render: function () {
+	        return React.createElement(
+	            'thead',
+	            null,
+	            React.createElement(
+	                'tr',
+	                null,
+	                React.createElement(
+	                    'th',
+	                    null,
+	                    'First Name'
+	                ),
+	                React.createElement(
+	                    'th',
+	                    null,
+	                    'Last Name'
+	                ),
+	                React.createElement(
+	                    'th',
+	                    null,
+	                    'Username'
+	                ),
+	                React.createElement(
+	                    'th',
+	                    null,
+	                    'Email'
+	                ),
+	                React.createElement(
+	                    'th',
+	                    null,
+	                    'Details'
+	                ),
+	                React.createElement(
+	                    'th',
+	                    null,
+	                    'Edit'
+	                ),
+	                React.createElement(
+	                    'th',
+	                    null,
+	                    'Delete'
+	                )
+	            )
+	        );
+	    }
+
+	});
+
+	var Table = React.createClass({
+	    displayName: 'Table',
+
+	    getInitialState: function () {
+	        return {
+	            data: []
+	        };
+	    },
+	    componentDidMount: function () {
+	        this.loadData();
+	    },
+	    loadData: function () {
+	        var url = baseUrl + "/test/users";
+
+	        jQuery.ajax({
+	            url: url,
+	            data: null,
+	            success: function (data) {
+	                this.setState({
+	                    data: data
+	                });
+	            }.bind(this)
+	        });
+	    },
+	    handleDeleteUser: function (id, index) {
+	        var deleteUrl = baseUrl + "/test/users/delete/" + id;
+	        jQuery.ajax({
+	            url: deleteUrl,
+	            data: null,
+	            success: function () {
+	                var data = this.state.data;
+	                data.splice(index, 1);
+	                this.setState({
+	                    data: this.state.data
+	                });
+	            }.bind(this)
+	        });
+	    },
+	    render: function () {
+
+	        return React.createElement(
+	            'div',
+	            { className: 'table' },
+	            React.createElement(
+	                'table',
+	                null,
+	                React.createElement(Header, null),
+	                React.createElement(
+	                    'tbody',
+	                    null,
+	                    this.state.data.map((user, i) => React.createElement(TableRow, { key: i, rowIndex: i, data: user,
+	                        rowStyle: i % 2 == 0 ? 'tableRow-even' : 'tableRow-odd',
+	                        handleDeleteUser: this.handleDeleteUser }))
+	                )
+	            )
+	        );
+	    }
+
+	});
+
+	module.exports = Table;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = React.createClass({
+	    displayName: 'Link',
+
+	    render: function () {
+	        return React.createElement(
+	            'a',
+	            { href: this.props.url, onClick: this.props.handleClick },
+	            this.props.title
+	        );
+	    }
+	});
+
+	module.exports = Link;
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(277);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(272)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../js/node_modules/css-loader/index.js!./Table.css", function() {
+				var newContent = require("!!./../js/node_modules/css-loader/index.js!./Table.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(271)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".tableRow-even{\r\n    background: aliceblue;\r\n}\r\n.tableRow-odd{\r\n    background: aquamarine;\r\n}\r\n\r\n.table{\r\n    background:brown;\r\n    padding:5px;\r\n    display: inline-flex;\r\n}", ""]);
+
+	// exports
 
 
 /***/ }

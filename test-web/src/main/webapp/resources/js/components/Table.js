@@ -1,6 +1,7 @@
 var React = require('react');
 var Link = require('./Link');
 var jQuery = require('jquery');
+require('./../../css/Table');
 
 var baseUrl="http://localhost:8080";
 var TableRow = React.createClass({
