@@ -17,24 +17,24 @@
 <body>
 <div id="container"></div>
 <script>
-    var baseUrl="http://localhost:8080";
-    var jqxr =  jQuery.get(baseUrl+"/test/users/26", function () {
+    var baseUrl="http://localhost:8080/test/users/new";
 
-    }).done(function () {
-        alert("done");
-    }).fail(function (jqxhr,textStatus, errorThrown) {
-        alert("fail")
-    }).always(function () {
-        alert("always");
-    });
-    //    jQuery.ajax({
-    //        dataType: "jsonp",
-    //        url: "http://localhost:8080/test/users",
-    //        data: null,
-    //        success: function (data) {
-    //            alert(data);
-    //        },
-    //    });
+    var d={name:"dragan", lastName:"susak"};
+    console.log(d);
+    d.name="papak";
+    console.log(d);
+
+
+//    jQuery.ajax({
+//        type:'POST',
+//        dataType:'json',
+//        contentType:'application/json; charset=utf-8',
+//        url: baseUrl,
+//        data: JSON.stringify({"username":"admin","email":"admin.admin@gmail.com","firstName":"abc","lastName":"abc"}),
+//        success: function () {
+//            alert("new user added");
+//        },
+//    });
 </script>
 </body>
 </html>

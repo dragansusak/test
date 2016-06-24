@@ -20349,15 +20349,34 @@
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(169);
+	var jQuery = __webpack_require__(266);
 	var Router = ReactRouter.Router;
 	var Route = ReactRouter.Route;
 	var IndexRoute = ReactRouter.IndexRoute;
 	var hashHistory = ReactRouter.hashHistory;
 
-	var Main = __webpack_require__(266);
-	var UserDetails = __webpack_require__(267);
-	var UsersOverview = __webpack_require__(273);
+	var Main = __webpack_require__(267);
+	var UserDetails = __webpack_require__(268);
+	var UserEdit = __webpack_require__(274);
+	var UsersOverview = __webpack_require__(275);
+	var mainEndpoint = __webpack_require__(269).mainEndpoint;
 
+	var onSubmitNewUser = function (data) {
+	    var url = mainEndpoint + "new";
+	    jQuery.ajax({
+	        contentType: 'application/json; charset=utf-8',
+	        type: 'POST',
+	        url: url,
+	        data: JSON.stringify(data),
+	        success: function () {
+	            hashHistory.push("/");
+	        }.bind(this)
+	    });
+	};
+	var onSubmitEditUser = function () {
+
+	    alert('Not implemented yet');
+	};
 	var routes = React.createElement(
 	    Router,
 	    { history: hashHistory },
@@ -20365,7 +20384,9 @@
 	        Route,
 	        { path: '/', component: Main },
 	        React.createElement(IndexRoute, { component: UsersOverview }),
-	        React.createElement(Route, { path: 'userDetails/:userId', component: UserDetails })
+	        React.createElement(Route, { path: 'userDetails/:userId', component: UserDetails }),
+	        React.createElement(Route, { path: 'userEdit/:userId', component: UserEdit, handleSubmitUser: onSubmitEditUser }),
+	        React.createElement(Route, { path: 'newUser', component: UserEdit, newUser: true, handleSubmitUser: onSubmitNewUser })
 	    )
 	);
 
@@ -29940,126 +29961,6 @@
 
 /***/ },
 /* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Main = React.createClass({
-	    displayName: 'Main',
-
-	    render: function () {
-	        return React.createElement(
-	            'div',
-	            null,
-	            this.props.children
-	        );
-	    }
-	});
-
-	module.exports = Main;
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var jQuery = __webpack_require__(268);
-	__webpack_require__(269);
-	var UserDetails = React.createClass({
-	    displayName: 'UserDetails',
-
-	    getInitialState: function () {
-	        return {
-	            data: {}
-	        };
-	    },
-	    componentDidMount: function () {
-	        this.loadData();
-	    },
-	    loadData: function () {
-	        var url = "http://localhost:8080/test/users/" + this.props.routeParams.userId;
-	        jQuery.ajax({
-	            url: url,
-	            data: null,
-	            success: function (data) {
-	                this.setState({
-	                    data: data
-	                });
-	            }.bind(this)
-	        });
-	    },
-	    render: function () {
-
-	        return React.createElement(
-	            'div',
-	            { className: 'userDetails' },
-	            React.createElement(
-	                'div',
-	                { className: 'userDetailsRow-even' },
-	                React.createElement(
-	                    'span',
-	                    null,
-	                    'First Name:'
-	                ),
-	                ' ',
-	                React.createElement(
-	                    'span',
-	                    null,
-	                    this.state.data.firstName
-	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'userDetailsRow-odd' },
-	                React.createElement(
-	                    'span',
-	                    null,
-	                    'Last name:'
-	                ),
-	                ' ',
-	                React.createElement(
-	                    'span',
-	                    null,
-	                    this.state.data.lastName
-	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'userDetailsRow-even' },
-	                React.createElement(
-	                    'span',
-	                    null,
-	                    'Username:'
-	                ),
-	                ' ',
-	                React.createElement(
-	                    'span',
-	                    null,
-	                    this.state.data.username
-	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'userDetailsRow-odd' },
-	                React.createElement(
-	                    'span',
-	                    null,
-	                    'Email:'
-	                ),
-	                ' ',
-	                React.createElement(
-	                    'span',
-	                    null,
-	                    this.state.data.email
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = UserDetails;
-
-/***/ },
-/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -39879,16 +39780,145 @@
 
 
 /***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Main = React.createClass({
+	    displayName: 'Main',
+
+	    render: function () {
+	        return React.createElement(
+	            'div',
+	            null,
+	            this.props.children
+	        );
+	    }
+	});
+
+	module.exports = Main;
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var jQuery = __webpack_require__(266);
+	var mainEndpoint = __webpack_require__(269).mainEndpoint;
+	__webpack_require__(270);
+	var UserDetails = React.createClass({
+	    displayName: 'UserDetails',
+
+	    getInitialState: function () {
+	        return {
+	            data: {}
+	        };
+	    },
+	    componentDidMount: function () {
+	        this.loadData();
+	    },
+	    loadData: function () {
+	        var url = mainEndpoint + this.props.routeParams.userId;
+	        jQuery.ajax({
+	            url: url,
+	            data: null,
+	            success: function (data) {
+	                this.setState({
+	                    data: data
+	                });
+	            }.bind(this)
+	        });
+	    },
+	    render: function () {
+
+	        return React.createElement(
+	            'div',
+	            { className: 'userDetails' },
+	            React.createElement(
+	                'div',
+	                { className: 'userDetailsRow-even' },
+	                React.createElement(
+	                    'span',
+	                    null,
+	                    'First Name:'
+	                ),
+	                ' ',
+	                React.createElement(
+	                    'span',
+	                    null,
+	                    this.state.data.firstName
+	                )
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'userDetailsRow-odd' },
+	                React.createElement(
+	                    'span',
+	                    null,
+	                    'Last name:'
+	                ),
+	                ' ',
+	                React.createElement(
+	                    'span',
+	                    null,
+	                    this.state.data.lastName
+	                )
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'userDetailsRow-even' },
+	                React.createElement(
+	                    'span',
+	                    null,
+	                    'Username:'
+	                ),
+	                ' ',
+	                React.createElement(
+	                    'span',
+	                    null,
+	                    this.state.data.username
+	                )
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'userDetailsRow-odd' },
+	                React.createElement(
+	                    'span',
+	                    null,
+	                    'Email:'
+	                ),
+	                ' ',
+	                React.createElement(
+	                    'span',
+	                    null,
+	                    this.state.data.email
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = UserDetails;
+
+/***/ },
 /* 269 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	    mainEndpoint: "http://localhost:8080/test/users/"
+	};
+
+/***/ },
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(270);
+	var content = __webpack_require__(271);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(272)(content, {});
+	var update = __webpack_require__(273)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -39905,10 +39935,10 @@
 	}
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(271)();
+	exports = module.exports = __webpack_require__(272)();
 	// imports
 
 
@@ -39919,7 +39949,7 @@
 
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports) {
 
 	/*
@@ -39975,7 +40005,7 @@
 
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -40227,12 +40257,142 @@
 
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Table = __webpack_require__(274);
-	var Link = __webpack_require__(275);
+	var jQuery = __webpack_require__(266);
+	var mainEndpoint = __webpack_require__(269).mainEndpoint;
+	__webpack_require__(270);
+	var UserEdit = React.createClass({
+	    displayName: 'UserEdit',
+
+	    getInitialState: function () {
+	        return {
+	            data: {}
+	        };
+	    },
+	    componentDidMount: function () {
+	        if (this.props.route.newUser) {
+	            //if the user is new, then no need to load data from endpoin
+	            return;
+	        }
+	        this.loadData();
+	    },
+	    loadData: function () {
+	        var url = mainEndpoint + this.props.routeParams.userId;
+	        jQuery.ajax({
+	            url: url,
+	            data: null,
+	            success: function (data) {
+	                this.setState({
+	                    data: data
+	                });
+	            }.bind(this)
+	        });
+	    },
+	    onSubmitUser: function () {
+	        this.props.route.handleSubmitUser(this.state.data);
+	    },
+	    onChangeFirstName: function (e) {
+	        var data = this.state.data;
+	        data.firstName = e.target.value;
+	        this.setState({
+	            data: data
+	        });
+	    },
+	    onChangeLastName: function (e) {
+	        var data = this.state.data;
+	        data.lastName = e.target.value;
+	        this.setState({
+	            data: data
+	        });
+	    },
+	    onChangeUsername: function (e) {
+	        var data = this.state.data;
+	        data.username = e.target.value;
+	        this.setState({
+	            data: data
+	        });
+	    },
+	    onChangeEmail: function (e) {
+	        var data = this.state.data;
+	        data.email = e.target.value;
+	        this.setState({
+	            data: data
+	        });
+	    },
+	    render: function () {
+
+	        return React.createElement(
+	            'div',
+	            { className: 'userDetails' },
+	            React.createElement(
+	                'form',
+	                { onSubmit: this.onSubmitUser },
+	                React.createElement(
+	                    'div',
+	                    { className: 'userDetailsRow-even' },
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        'First Name:'
+	                    ),
+	                    ' ',
+	                    React.createElement('input', { value: this.state.data.firstName, onChange: this.onChangeFirstName })
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'userDetailsRow-odd' },
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        'Last name:'
+	                    ),
+	                    ' ',
+	                    React.createElement('input', { value: this.state.data.lastName, onChange: this.onChangeLastName })
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'userDetailsRow-even' },
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        'Username:'
+	                    ),
+	                    ' ',
+	                    React.createElement('input', { value: this.state.data.username, onChange: this.onChangeUsername })
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'userDetailsRow-odd' },
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        'Email:'
+	                    ),
+	                    ' ',
+	                    React.createElement('input', { value: this.state.data.email, onChange: this.onChangeEmail })
+	                ),
+	                React.createElement(
+	                    'button',
+	                    { type: 'submit' },
+	                    'Submit'
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = UserEdit;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Table = __webpack_require__(276);
+	var Link = __webpack_require__(277);
 	var UsersOverview = React.createClass({
 	    displayName: 'UsersOverview',
 
@@ -40244,7 +40404,7 @@
 	            React.createElement(
 	                'div',
 	                null,
-	                React.createElement(Link, { title: 'New user', url: '' })
+	                React.createElement(Link, { title: 'New user', url: '#/newUser' })
 	            )
 	        );
 	    }
@@ -40253,15 +40413,15 @@
 	module.exports = UsersOverview;
 
 /***/ },
-/* 274 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Link = __webpack_require__(275);
-	var jQuery = __webpack_require__(268);
-	__webpack_require__(276);
+	var Link = __webpack_require__(277);
+	var jQuery = __webpack_require__(266);
+	var mainEndpoint = __webpack_require__(269).mainEndpoint;
+	__webpack_require__(278);
 
-	var baseUrl = "http://localhost:8080";
 	var TableRow = React.createClass({
 	    displayName: 'TableRow',
 
@@ -40270,6 +40430,7 @@
 	    },
 	    render: function () {
 	        var detailsUrl = "#/userDetails/" + this.props.data.id;
+	        var editUrl = "#/userEdit/" + this.props.data.id;
 	        return React.createElement(
 	            'tr',
 	            { className: this.props.rowStyle },
@@ -40298,7 +40459,11 @@
 	                null,
 	                React.createElement(Link, { title: 'Details', url: detailsUrl })
 	            ),
-	            React.createElement('td', null),
+	            React.createElement(
+	                'td',
+	                null,
+	                React.createElement(Link, { title: 'Edit', url: editUrl })
+	            ),
 	            React.createElement(
 	                'td',
 	                null,
@@ -40372,7 +40537,7 @@
 	        this.loadData();
 	    },
 	    loadData: function () {
-	        var url = baseUrl + "/test/users";
+	        var url = mainEndpoint;
 
 	        jQuery.ajax({
 	            url: url,
@@ -40385,7 +40550,7 @@
 	        });
 	    },
 	    handleDeleteUser: function (id, index) {
-	        var deleteUrl = baseUrl + "/test/users/delete/" + id;
+	        var deleteUrl = mainEndpoint + "delete/" + id;
 	        jQuery.ajax({
 	            url: deleteUrl,
 	            data: null,
@@ -40423,7 +40588,7 @@
 	module.exports = Table;
 
 /***/ },
-/* 275 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -40442,16 +40607,16 @@
 	module.exports = Link;
 
 /***/ },
-/* 276 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(277);
+	var content = __webpack_require__(279);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(272)(content, {});
+	var update = __webpack_require__(273)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -40468,10 +40633,10 @@
 	}
 
 /***/ },
-/* 277 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(271)();
+	exports = module.exports = __webpack_require__(272)();
 	// imports
 
 

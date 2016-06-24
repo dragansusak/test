@@ -1,5 +1,6 @@
 var React = require('react');
 var jQuery = require('jquery');
+var mainEndpoint = require('./endpoints').mainEndpoint;
 require('./../../css/userDetails');
 var UserDetails = React.createClass({
     getInitialState: function() {
@@ -11,7 +12,7 @@ var UserDetails = React.createClass({
         this.loadData();
     },
     loadData : function (){
-        var url= "http://localhost:8080/test/users/" + this.props.routeParams.userId;
+        var url= mainEndpoint + this.props.routeParams.userId;
         jQuery.ajax({
             url: url,
             data: null,

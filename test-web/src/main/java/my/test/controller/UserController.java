@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +56,10 @@ public class UserController {
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public ResponseEntity<Void> storeUser(@RequestBody @Valid UserDto user, BindingResult bindingResult) {
         HttpHeaders headers = new HttpHeaders();
+        user.setPassword("password");
+        user.setSalt("salt");
+        user.setValidFrom(LocalDateTime.now());
+        user.setValidTo(user.getValidFrom().plus(Period.of(3,0,0)));
         User savedUser = userService.storeUser(userConverter.convertToModel(user));
         if (savedUser != null)
             headers.add("UserId", savedUser.getId() + "");

@@ -7,7 +7,7 @@ var UsersOverview = React.createClass({
             <div>
                 <Table/>
                 <div>
-                    <Link title="New user" url=""/>
+                    <Link title="New user" url="#/newUser"/>
                 </div>
             </div>
         );

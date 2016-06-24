@@ -1,15 +1,16 @@
 var React = require('react');
 var Link = require('./Link');
 var jQuery = require('jquery');
+var mainEndpoint = require('./endpoints').mainEndpoint;
 require('./../../css/Table');
 
-var baseUrl="http://localhost:8080";
 var TableRow = React.createClass({
     handleDeleteUser: function () {
         this.props.handleDeleteUser(this.props.data.id, this.props.rowIndex);
     },
     render: function () {
         var detailsUrl = "#/userDetails/"+this.props.data.id;
+        var editUrl = "#/userEdit/"+this.props.data.id;
         return (
             <tr className={this.props.rowStyle}>
                 <td>{this.props.data.firstName}</td>
@@ -17,7 +18,7 @@ var TableRow = React.createClass({
                 <td>{this.props.data.username}</td>
                 <td>{this.props.data.email}</td>
                 <td><Link title="Details" url={detailsUrl}/></td>
-                <td></td>
+                <td><Link title="Edit" url={editUrl}/></td>
                 <td><Link title="Delete" handleClick={this.handleDeleteUser} url="#"/></td>
             </tr>
         );
@@ -54,7 +55,7 @@ var Table = React.createClass({
         this.loadData();
     },
     loadData: function () {
-        var url = baseUrl + "/test/users";
+        var url = mainEndpoint;
 
         jQuery.ajax({
             url: url,
@@ -67,7 +68,7 @@ var Table = React.createClass({
         });
     },
     handleDeleteUser: function (id, index) {
-        var deleteUrl = baseUrl+"/test/users/delete/" + id;
+        var deleteUrl = mainEndpoint+"delete/" + id;
         jQuery.ajax({
             url: deleteUrl,
             data: null,

@@ -85,7 +85,7 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>test</warName>
-                    <warSourceExcludes>resources/node_modules/**</warSourceExcludes>
+                    <warSourceExcludes>resources/**/node_modules/**</warSourceExcludes>
                 </configuration>
             </plugin>
         </plugins>
