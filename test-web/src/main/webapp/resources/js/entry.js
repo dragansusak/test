@@ -1,6 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Hello from "./hello";
-import './style';
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import todoApp from './to_do_components/reducers'
+import App from './to_do_components/app'
 
-ReactDOM.render(<Hello name="eeee"/>, document.getElementById("blabla"));
+let store = createStore(todoApp,{}, window.devToolsExtension?window.devToolsExtension():{})
+
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('blabla')
+)
